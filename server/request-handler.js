@@ -59,7 +59,7 @@ module.exports = function(request, response) {
   //
   // Calling .end "flushes" the response's internal buffer, forcing
   // node to actually send all the data over to the client.
-  response.end('ni hao, tout le monde!');
+  response.end('ciao, tout le monde!');
 };
 
 // These headers will allow Cross-Origin Resource Sharing (CORS).
