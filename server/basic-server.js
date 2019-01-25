@@ -1,8 +1,16 @@
 /* Import node's http module: */
+//START HERE 1/25/19:
+ //look at console.log on 45
+ //TODO:
+   //request.url is wrong
+   //request is too long
+   //path is just / (should be classes/messages)
+   //getting reference to 'order: '-createdAt' when we console.log urlParts - line 46
+
+
 var http = require('http');
 var url = require('url');
 var handleRequest = require('./request-handler.js');
-var utilities = require('./utilities.js');
 
 // Every server needs to listen on a port with a unique number. The
 // standard port for HTTP servers is port 80, but that port is
@@ -16,6 +24,7 @@ var port = 3000;
 // special address that always refers to localhost.
 var ip = '127.0.0.1';
 
+//console.log('handleRequest', handleRequest);
 
 
 var routes = {
@@ -33,7 +42,10 @@ var routes = {
 
 var server = http.createServer(function(request, response) {
   var urlParts = url.parse(request.url);
-  var route = routes[parts.pathname];
+  console.log('request.url', request.url);
+  //console.log('urlParts', urlParts);
+  var route = routes[urlParts.pathname];
+  //console.log('route', route);
   if (route) {
     route(request, response);
   }
