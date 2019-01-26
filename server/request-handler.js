@@ -11,21 +11,26 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
-var actions = {
+var sendResponse = function(response, data) {
+  statusCode = statusCode || 200;
+  response.writeHead(statusCode, headers);
+  response.end(JSON.stringify(data));
+  console.log('data', data);
+};
+
+var verbs = {
   'GET': function(request, response) {
-    exports.sendResponse(response, {results: messages});
+    sendResponse(response, {results: messages});
   }
 };
 
 //function needs a name
 module.exports = function(request, response) {
   // Request and Response come from node's http module.
-  var action = actions[request.method];
+  var action = verbs[request.method];
   console.log('response.statusCode', response.statusCode)
-
   if (action) action(request, response);
-
-  else exports.sendResponse(response, 'Not Found', 404);
+  else sendResponse(response, 'Not Found', 404);
   //
   // They include information about both the incoming request, such as
   // headers and URL, and about the outgoing response, such as its status
@@ -95,11 +100,7 @@ var headers = defaultCorsHeaders;
 headers['Content-Type'] = 'application/json';
 
 
-exports.sendResponse = function(response, data) {
-  statusCode = statusCode || 200;
-  response.writeHead(statusCode, headers);
-  response.end(JSON.stringify(data));
-};
+
 
 // These headers will allow Cross-Origin Resource Sharing (CORS).
 // This code allows this server to talk to websites that
