@@ -1,103 +1,103 @@
-/*************************************************************
+// /*************************************************************
 
-You should implement your request handler function in this file.
+// You should implement your request handler function in this file.
 
-requestHandler is already getting passed to http.createServer()
-in basic-server.js, but it won't work as is.
+// requestHandler is already getting passed to http.createServer()
+// in basic-server.js, but it won't work as is.
 
-You'll have to figure out a way to export this function from
-this file and include it in basic-server.js so that it actually works.
+// You'll have to figure out a way to export this function from
+// this file and include it in basic-server.js so that it actually works.
 
-*Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
+// *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
-**************************************************************/
-var sendResponse = function(response, data) {
-  statusCode = statusCode || 200;
-  response.writeHead(statusCode, headers);
-  response.end(JSON.stringify(data));
-  console.log('data', data);
-};
+// **************************************************************/
+// var sendResponse = function(response, data) {
+//   statusCode = statusCode || 200;
+//   response.writeHead(statusCode, headers);
+//   response.end(JSON.stringify(data));
+//   console.log('data', data);
+// };
 
-var verbs = {
-  'GET': function(request, response) {
-    sendResponse(response, {results: messages});
-  }
-};
+// var verbs = {
+//   'GET': function(request, response) {
+//     sendResponse(response, {results: messages});
+//   }
+// };
 
-//function needs a name
-module.exports = function(request, response) {
-  // Request and Response come from node's http module.
-  var action = verbs[request.method];
-  console.log('response.statusCode', response.statusCode)
-  if (action) action(request, response);
-  else sendResponse(response, 'Not Found', 404);
-  //
-  // They include information about both the incoming request, such as
-  // headers and URL, and about the outgoing response, such as its status
-  // and content.
-  //
-  // Documentation for both request and response can be found in the HTTP section at
-  // http://nodejs.org/documentation/api/
+// //function needs a name
+// module.exports = function(request, response) {
+//   // Request and Response come from node's http module.
+//   var action = verbs[request.method];
+//   console.log('response.statusCode', response.statusCode)
+//   if (action) action(request, response);
+//   else sendResponse(response, 'Not Found', 404);
+//   //
+//   // They include information about both the incoming request, such as
+//   // headers and URL, and about the outgoing response, such as its status
+//   // and content.
+//   //
+//   // Documentation for both request and response can be found in the HTTP section at
+//   // http://nodejs.org/documentation/api/
 
-  // Do some basic logging.
-  //
-  // Adding more logging to your server can be an easy way to get passive
-  // debugging help, but you should always be careful about leaving stray
-  // console.logs in your code.
- console.log('Serving request type ' + request.method + ' for url ' + request.url);
+//   // Do some basic logging.
+//   //
+//   // Adding more logging to your server can be an easy way to get passive
+//   // debugging help, but you should always be careful about leaving stray
+//   // console.logs in your code.
+//  console.log('Serving request type ' + request.method + ' for url ' + request.url);
 
-  // The outgoing status.
-  /* var statusCode = 200;
+//   // The outgoing status.
+//   /* var statusCode = 200;
 
-  var defaultCorsHeaders = {
-    'access-control-allow-origin': '*',
-    'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'access-control-allow-headers': 'content-type, accept',
-    'access-control-max-age': 10 // Seconds.
-  };
+//   var defaultCorsHeaders = {
+//     'access-control-allow-origin': '*',
+//     'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+//     'access-control-allow-headers': 'content-type, accept',
+//     'access-control-max-age': 10 // Seconds.
+//   };
 
-  // See the note below about CORS headers.
-  var headers = defaultCorsHeaders;
+//   // See the note below about CORS headers.
+//   var headers = defaultCorsHeaders;
 
-  // Tell the client we are sending them plain text.
-  //
-  // You will need to change this if you are sending something
-  // other than plain text, like JSON or HTML.
-  headers['Content-Type'] = 'application/json';
- */
-  // .writeHead() writes to the request line and headers of the response,
-  // which includes the status and all headers.
-  //response.writeHead(statusCode, headers);
+//   // Tell the client we are sending them plain text.
+//   //
+//   // You will need to change this if you are sending something
+//   // other than plain text, like JSON or HTML.
+//   headers['Content-Type'] = 'application/json';
+//  */
+//   // .writeHead() writes to the request line and headers of the response,
+//   // which includes the status and all headers.
+//   //response.writeHead(statusCode, headers);
 
-  // Make sure to always call response.end() - Node may not send
-  // anything back to the client until you do. The string you pass to
-  // response.end() will be the body of the response - i.e. what shows
-  // up in the browser.
-  //
-  // Calling .end "flushes" the response's internal buffer, forcing
-  // node to actually send all the data over to the client.
-  //response.end('ciao, tout le monde!');
-};
+//   // Make sure to always call response.end() - Node may not send
+//   // anything back to the client until you do. The string you pass to
+//   // response.end() will be the body of the response - i.e. what shows
+//   // up in the browser.
+//   //
+//   // Calling .end "flushes" the response's internal buffer, forcing
+//   // node to actually send all the data over to the client.
+//   //response.end('ciao, tout le monde!');
+// };
 
 
 
-var statusCode = 200;
+// var statusCode = 200;
 
-var defaultCorsHeaders = {
-  'access-control-allow-origin': '*',
-  'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'access-control-allow-headers': 'content-type, accept',
-  'access-control-max-age': 10 // Seconds.
-};
+// var defaultCorsHeaders = {
+//   'access-control-allow-origin': '*',
+//   'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+//   'access-control-allow-headers': 'content-type, accept',
+//   'access-control-max-age': 10 // Seconds.
+// };
 
-// See the note below about CORS headers.
-var headers = defaultCorsHeaders;
+// // See the note below about CORS headers.
+// var headers = defaultCorsHeaders;
 
-// Tell the client we are sending them plain text.
-//
-// You will need to change this if you are sending something
-// other than plain text, like JSON or HTML.
-headers['Content-Type'] = 'application/json';
+// // Tell the client we are sending them plain text.
+// //
+// // You will need to change this if you are sending something
+// // other than plain text, like JSON or HTML.
+// headers['Content-Type'] = 'application/json';
 
 
 
@@ -112,3 +112,70 @@ headers['Content-Type'] = 'application/json';
 // Another way to get around this restriction is to serve you chat
 // client from this domain by setting up static file serving.
 
+
+
+
+// -------------------------------------------------------------------------------------------
+
+
+
+/*************************************************************
+You should implement your request handler function in this file.
+requestHandler is already getting passed to http.createServer()
+in basic-server.js, but it won't work as is.
+You'll have to figure out a way to export this function from
+this file and include it in basic-server.js so that it actually works.
+*Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
+**************************************************************/
+var url = require('url');
+
+var requestHandler = function(request, response) {
+  // The outgoing status.
+  var statusCode = 200;
+  var urlParts = url.parse(request.url); // url object with props incl. pathname, path, href, etc.
+  console.log('urlParts', urlParts);
+
+  console.log('Serving request type ' + request.method + ' for url ' + request.url);
+
+
+
+  // See the note below about CORS headers.
+  var headers = defaultCorsHeaders;
+
+  // Tell the client we are sending them plain text.
+  //
+  // You will need to change this if you are sending something
+  // other than plain text, like JSON or HTML.
+  headers['Content-Type'] = 'text/plain';
+
+  // .writeHead() writes to the request line and headers of the response,
+  // which includes the status and all headers.
+  response.writeHead(statusCode, headers);
+
+  // Make sure to always call response.end() - Node may not send
+  // anything back to the client until you do. The string you pass to
+  // response.end() will be the body of the response - i.e. what shows
+  // up in the browser.
+  //
+  // Calling .end "flushes" the response's internal buffer, forcing
+  // node to actually send all the data over to the client.
+  response.end('Hello, World!');
+};
+
+// These headers will allow Cross-Origin Resource Sharing (CORS).
+// This code allows this server to talk to websites that
+// are on different domains, for instance, your chat client.
+//
+// Your chat client is running from a url like file://your/chat/client/index.html,
+// which is considered a different domain.
+//
+// Another way to get around this restriction is to serve you chat
+// client from this domain by setting up static file serving.
+var defaultCorsHeaders = {
+  'access-control-allow-origin': '*',
+  'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'access-control-allow-headers': 'content-type, accept',
+  'access-control-max-age': 10 // Seconds.
+};
+
+exports.requestHandler = requestHandler;
