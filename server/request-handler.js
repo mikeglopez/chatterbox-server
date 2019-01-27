@@ -142,7 +142,7 @@ var requestHandler = function(request, response) {
   var urlParts = url.parse(request.url); // url object with props incl. pathname, path, href, etc.
 
   if (urlParts.pathname === '/classes/messages/') {
-    // do something
+    // do something here
   }
 
   console.log('Serving request type ' + request.method + ' for url ' + request.url);
