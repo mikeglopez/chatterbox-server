@@ -1,12 +1,12 @@
 /* Import node's http module: */
-//START HERE 1/25/19:
-//look at console.log on 45
-//TODO:
-//request.url is wrong
-//request is too long
-//path is just / (should be classes/messages)
-//getting reference to 'order: '-createdAt' when we console.log urlParts - line 46
-//Stephanie's thought var path = require('path') - as shown in video
+// START HERE 1/25/19:
+// look at console.log on 45
+// TODO:
+// request.url is wrong
+// request is too long
+// path is just / (should be classes/messages)
+// getting reference to 'order: '-createdAt' when we console.log urlParts - line 46
+// Stephanie's thought var path = require('path') - as shown in video
 
 
 // var http = require('http');

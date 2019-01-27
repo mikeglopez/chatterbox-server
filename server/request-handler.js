@@ -1,16 +1,16 @@
-// /*************************************************************
+/*************************************************************
 
-// You should implement your request handler function in this file.
+You should implement your request handler function in this file.
 
-// requestHandler is already getting passed to http.createServer()
-// in basic-server.js, but it won't work as is.
+requestHandler is already getting passed to http.createServer()
+in basic-server.js, but it won't work as is.
 
-// You'll have to figure out a way to export this function from
-// this file and include it in basic-server.js so that it actually works.
+You'll have to figure out a way to export this function from
+this file and include it in basic-server.js so that it actually works.
 
-// *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
+*Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
-// **************************************************************/
+**************************************************************/
 // var sendResponse = function(response, data) {
 //   statusCode = statusCode || 200;
 //   response.writeHead(statusCode, headers);
@@ -97,7 +97,7 @@
 // //
 // // You will need to change this if you are sending something
 // // other than plain text, like JSON or HTML.
-// headers['Content-Type'] = 'application/json';
+// // headers['Content-Type'] = 'application/json';
 
 
 
@@ -129,11 +129,21 @@ this file and include it in basic-server.js so that it actually works.
 **************************************************************/
 var url = require('url');
 
+var defaultCorsHeaders = {
+  'access-control-allow-origin': '*',
+  'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'access-control-allow-headers': 'content-type, accept',
+  'access-control-max-age': 10 // Seconds.
+};
+
 var requestHandler = function(request, response) {
   // The outgoing status.
   var statusCode = 200;
   var urlParts = url.parse(request.url); // url object with props incl. pathname, path, href, etc.
-  console.log('urlParts', urlParts);
+
+  if (urlParts.pathname === '/classes/messages/') {
+    // do something
+  }
 
   console.log('Serving request type ' + request.method + ' for url ' + request.url);
 
@@ -160,22 +170,6 @@ var requestHandler = function(request, response) {
   // Calling .end "flushes" the response's internal buffer, forcing
   // node to actually send all the data over to the client.
   response.end('Hello, World!');
-};
-
-// These headers will allow Cross-Origin Resource Sharing (CORS).
-// This code allows this server to talk to websites that
-// are on different domains, for instance, your chat client.
-//
-// Your chat client is running from a url like file://your/chat/client/index.html,
-// which is considered a different domain.
-//
-// Another way to get around this restriction is to serve you chat
-// client from this domain by setting up static file serving.
-var defaultCorsHeaders = {
-  'access-control-allow-origin': '*',
-  'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'access-control-allow-headers': 'content-type, accept',
-  'access-control-max-age': 10 // Seconds.
 };
 
 exports.requestHandler = requestHandler;
