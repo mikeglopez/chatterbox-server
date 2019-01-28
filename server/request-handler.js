@@ -155,18 +155,15 @@ var requestHandler = function(request, response) {
       statusCode = 201;
       console.log('Serving request type ' + request.method + ' for url ' + request.url);
       request.on('data', (chunk) => {
-        console.log('JSON.parse(chunk)', JSON.parse(chunk));
         messages.results.unshift(JSON.parse(chunk));
       });
     } else if (request.method === 'OPTIONS') {
       statusCode = 200;
       console.log('Serving request type ' + request.method + ' for url ' + request.url);
+    } else {
+      statusCode = 405;
     }
   }
-
-  console.log('messages.results:', messages.results);
-
-
 
   // Tell the client we are sending them plain text.
   //

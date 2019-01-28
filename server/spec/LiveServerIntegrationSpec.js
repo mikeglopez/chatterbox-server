@@ -107,5 +107,15 @@ describe('server', function() {
     });
   });
 
+  it('Should 405 when asked for a non supported request method', function(done) {
+    var requestParams = {method: 'DELETE',
+      uri: 'http://127.0.0.1:3000/classes/messages',
+    };
+
+    request(requestParams, function(error, response, body) {
+      expect(response.statusCode).to.equal(405);
+      done();
+    });
+  });
 
 });

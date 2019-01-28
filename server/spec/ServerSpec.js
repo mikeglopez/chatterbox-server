@@ -66,6 +66,30 @@ describe('Node Server Request Listener Function', function() {
     expect(res._ended).to.equal(true);
   });
 
+  it('Should send messages containing a username property', function() {
+    var stubMsg = {
+      username: 'Jono',
+      text: 'Do my bidding!'
+    };
+    var req = new stubs.request('/classes/messages', 'POST', stubMsg);
+    var res = new stubs.response();
+
+    handler.requestHandler(req, res);
+
+    expect(res._responseCode).to.equal(201);
+
+    // Now if we request the log for that room the message we posted should be there:
+    req = new stubs.request('/classes/messages', 'GET');
+    res = new stubs.response();
+
+    handler.requestHandler(req, res);
+
+    var parsedBody = JSON.parse(res._data);
+    expect(parsedBody.results[0]).to.have.property('username');
+    expect(parsedBody.results[0]).to.be.an('object');
+    expect(res._ended).to.equal(true);
+  });
+
   it('Should accept posts to /classes/messages', function() {
     var stubMsg = {
       username: 'Jono',
@@ -123,6 +147,20 @@ describe('Node Server Request Listener Function', function() {
       function() { return res._ended; },
       function() {
         expect(res._responseCode).to.equal(404);
+      });
+  });
+
+  it('Should 405 when asked for a non supported request method', function() {
+    var req = new stubs.request('/classes/messages', 'DELETE');
+    var res = new stubs.response();
+
+    handler.requestHandler(req, res);
+
+    // Wait for response to return and then check status code
+    waitForThen(
+      function() { return res._ended; },
+      function() {
+        expect(res._responseCode).to.equal(405);
       });
   });
 
